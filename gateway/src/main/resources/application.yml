@@ -16,7 +16,7 @@ spring:
         - id: org-service
           uri: lb://org-service
           predicates:
-            - Path=/org/**
+            - Path=/org-service/**
         - id: department-service
           uri: lb://department-service
           predicates:
