@@ -1,0 +1,18 @@
+server:
+  servlet:
+    context-path: /
+  port: 4000
+
+spring:
+  cloud:
+    consul:
+      discovery:
+        instance-id: ${spring.application.name}-${server.port}-${random.int[1,99]}
+        prefer-ip-address: true
+        service-name: ${spring.application.name}
+      host: localhost
+      port: 8500
+
+  application:
+    name: department-service
+
