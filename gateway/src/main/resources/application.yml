@@ -9,10 +9,32 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: user-service
+        - id: user-service-user-details
           uri: lb://user-service
           predicates:
             - Path=/user/**
+            - Header=user-name, codingwithdanny
+            - Method=POST, GET
+            - Query=id, \d+
+
+          filters:
+            - AddRequestHeader=calling-from, Postman
+            - AddResponseHeader=X-Powered-By, Spring gateway service
+            - MapRequestHeader=user-name, X-user-name
+        - id: user-service-user-dept
+          uri: lb://user-service
+          predicates:
+            - Path=/user/**
+            - Header=user-name, codingwithdanny
+            - Method=POST, GET
+            - Query=deptId, \d+
+
+          filters:
+            - AddRequestHeader=calling-from, Postman
+            - AddResponseHeader=X-Powered-By, Spring gateway service
+            - MapRequestHeader=user-name, X-user-name
+
+
         - id: org-service
           uri: lb://org-service
           predicates:

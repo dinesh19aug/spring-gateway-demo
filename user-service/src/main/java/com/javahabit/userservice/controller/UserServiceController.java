@@ -7,10 +7,8 @@ import com.javahabit.userservice.vo.Error;
 import com.javahabit.userservice.vo.UserResponseVO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -20,7 +18,11 @@ public class UserServiceController {
         this.userService = service;
     }
     @GetMapping(value = "/getUserDetailsById",produces = "application/json")
-    public ResponseEntity<UserResponseVO> getUserDetailsById(@RequestParam String id){
+    public ResponseEntity<UserResponseVO> getUserDetailsById(@RequestParam String id, @RequestHeader MultiValueMap<String, String> headers ){
+        headers.forEach((key,value)->{
+            System.out.println(key + " -->" + value);
+        });
+
         UserResponseVO userResponseVO;
         try {
             User user = userService.fetchUserById(Integer.parseInt(id));
