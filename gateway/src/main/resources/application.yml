@@ -1,0 +1,35 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: gateway-svc
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/user/**
+        - id: org-service
+          uri: lb://org-service
+          predicates:
+            - Path=/org/**
+        - id: department-service
+          uri: lb://department-service
+          predicates:
+            - Path=/department/**
+
+
+
+    consul:
+      config:
+        enabled: false
+      host: localhost
+      port: 8500
+      discovery:
+        prefer-ip-address: false
+
+
