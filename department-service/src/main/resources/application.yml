@@ -4,6 +4,8 @@ server:
   port: 4000
 
 spring:
+  jackson:
+    default-property-inclusion: non_null
   cloud:
     consul:
       discovery:
