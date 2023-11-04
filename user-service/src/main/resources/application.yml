@@ -4,7 +4,10 @@ server:
     context-path: /
   port: 3000
 
+
 spring:
+  jackson:
+    default-property-inclusion: non_null
   cloud:
     consul:
       discovery:

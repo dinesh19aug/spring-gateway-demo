@@ -1,7 +1,7 @@
 package com.javahabit.userservice.service;
 
 import com.javahabit.userservice.domain.User;
-import com.javahabit.userservice.error.DataNotFooundException;
+import com.javahabit.userservice.error.DataNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,10 +26,18 @@ public class UserService implements IService{
     }
 
     @Override
-    public User fetchUserByDepartment(int departmentId) throws DataNotFooundException {
+    public User fetchUserByDepartment(int departmentId) throws DataNotFoundException {
         return userList.stream()
                 .filter(u ->  u.department()==departmentId)
                 .findFirst()
-                .orElseThrow(()->new DataNotFooundException("User not found in this department"));
+                .orElseThrow(()->new DataNotFoundException("User not found in this department"));
+    }
+
+    @Override
+    public User fetchUserById(int userId) throws DataNotFoundException {
+        return userList.stream()
+                .filter(u ->  u.id()==userId)
+                .findFirst()
+                .orElseThrow(()->new DataNotFoundException("User not found"));
     }
 }
